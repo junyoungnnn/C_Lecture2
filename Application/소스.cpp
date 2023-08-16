@@ -1,76 +1,60 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
 
-#define UP 72
-#define LEFT 75
-#define RIGHT 77
-#define DOWN 80
 
-void gotoXY(int x, int y)
+void ReadTextFile(const char * fileName)
 {
-	// x, y 좌표 설정
-	COORD position = { x,y };
+	FILE* readfile = fopen(fileName, "r");
 
-	// 커서 이동
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
+	char buffer[10000] = { 0, };
+
+
+	// fread()
+	// 첫번째 매개변수 : 크기를 가지는 배열을 가리키는 포인터
+	// 두번째 매개변수 : 읽어들일 원소의 크기이며, 단위는 바이트입니다.
+	// 세번째 매개변수 : 읽어들일 원소들의 개수로 각 원소의 크기입니다.
+	// 네번째 매개변수 : 데이터를 입력받을 스트림의 FILE 객체를 가리키는 포인터입니다.
+	fread(buffer, 1, 10000, readfile);
+	printf("%s", buffer);
+
+	fclose(readfile);
+
 }
 
 int main()
 {
-#pragma region _kbhit() 함수
+#pragma region 파일 입출력
+	// 보조 기억 장치(디스크)로부터 데이터를 
+	// 읽어오거나 저장하는 과정입니다.
 
-	//	char key = 0;
-	//	int x = 5;
-	//	int y = 5;
-	//	
-	//	// Update()
-	//	while (1)
-	//	
-	//		gotoXY(x, y);
-	//		printf("★");
-	//	
-	//		// 좌표계의 원점이 왼쪽상단에 있기 때문에 
-	//		// 아래로 움직이려면 +, 위로 올라가려면 -를 해줘야한다.
-	//		
-	//	
-	//		if (_kbhit()) // 키보드 함수를 확인하는 함수
-	//		{
-	//			key = _getch();
-	//	
-	//			if (key == -32)
-	//			{
-	//				key = _getch();
-	//			}
-	//	
-	//			switch (key)
-	//			{
-	//			case UP:
-	//				if (y <= 0) break;
-	//				y--;
-	//				break;
-	//			case LEFT:
-	//				if (x <= 0) break;
-	//				x--;
-	//				break;
-	//			case RIGHT: x++;
-	//				break;
-	//			case DOWN: y++;
-	//				break;
-	//			}
-	//			// 화면을 지우는 함수
-	//			system("cls");
-	//		}
-	//		// gotoXY(15, 15);
-	//		// printf("게임중...\n");
-	//		// 
-	//		// // Sleep(1) : 1/1000로 계산됩니다.
-	//		// Sleep(100);
-	//	
+	// fopen("파일 이름", "파일 모드")
+	// "w" : 파일 쓰기
+
+	/*
+	FILE* filePtr = fopen("data.txt", "w");
+
+	char content[] = "Content";
+
+	fputs(content, filePtr);
+
+	FILE* fileReader = fopen("data.txt", "r");
+	fgets(content, sizeof(content), fileReader);
+	printf("%s", content);
+
+	fclose(fileReader);
+	*/
 
 #pragma endregion
 
+	//ReadTextFile("Resources/dragon.txt");
 
+	while (1)
+	{
+		ReadTextFile("Resources/data.txt");
+
+		system("cls");
+	}
 	return 0;
 }

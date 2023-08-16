@@ -1,4 +1,2 @@
 ﻿  소스.cpp
-C:\Users\Administrator\Desktop\C_Lecture2\Application\소스.cpp(14,21): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\Administrator\Desktop\C_Lecture2\Application\소스.cpp(14,23): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-  Application.vcxproj -> C:\Users\Administrator\Desktop\C_Lecture2\Application\x64\Debug\Application.exe
+  Application.vcxproj -> C:\Users\노준오\Desktop\C_Lecture2\Application\x64\Debug\Application.exe
