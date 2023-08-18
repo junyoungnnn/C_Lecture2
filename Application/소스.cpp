@@ -1,210 +1,153 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <string.h>
 #include <conio.h>
 #include <windows.h>
+#include <time.h>
 
-#define UP 72
 #define LEFT 75
 #define RIGHT 77
-#define DOWN 80
-#pragma region 더블 버퍼링
 
-//	// HANDLE 인덱스에 접근해서 버퍼를 교체시키는 변수
-//	int screenIndex = 0;
-//	
-//	// 버퍼의 크기
-//	int width = 100;
-//	int height = 60;
-//	
-//	// 버퍼 생성
-//	HANDLE Screen[2];
-//	
-//	// [0] : Front Buffer
-//	// [1] : Back Buffer
-//	
-//	struct Player
-//	{
-//		int x;
-//		int y;
-//		const char* shape;
-//	};
-//	
-//	// 버퍼를 초기화 하는 함수
-//	void Init()
-//	{
-//		CONSOLE_CURSOR_INFO cursor;
-//	
-//		// 버퍼의 가로 사이즈, 세로 사이즈
-//		COORD size = { width, height };
-//	
-//		// LEFT, TOP, RIGHT, BOTTOM
-//		SMALL_RECT rect = { 0,0,width - 1, height - 1 };
-//	
-//		// 화면 2개를 생성합니다.
-//		// FRONT BUFFER
-//		Screen[0] = CreateConsoleScreenBuffer
-//		(
-//			GENERIC_READ | GENERIC_WRITE,
-//			FILE_SHARE_READ | FILE_SHARE_WRITE,
-//			NULL,
-//			CONSOLE_TEXTMODE_BUFFER,
-//			NULL
-//		);
-//	
-//		SetConsoleScreenBufferSize(Screen[0], size);
-//	
-//		SetConsoleWindowInfo(Screen[0], TRUE, &rect);
-//	
-//		// BACK BUFFER
-//		Screen[1] = CreateConsoleScreenBuffer
-//		(
-//			GENERIC_READ | GENERIC_WRITE,
-//			FILE_SHARE_READ | FILE_SHARE_WRITE,
-//			NULL,
-//			CONSOLE_TEXTMODE_BUFFER,
-//			NULL
-//		);
-//	
-//		SetConsoleScreenBufferSize(Screen[1], size);
-//	
-//		SetConsoleWindowInfo(Screen[1], TRUE, &rect);
-//	
-//		// 커서의 활성화 여부
-//		// false : 거짓
-//		// true : 참
-//		cursor.bVisible = false;
-//	
-//		SetConsoleCursorInfo(Screen[0], &cursor);
-//		SetConsoleCursorInfo(Screen[1], &cursor);
-//	}
-//	
-//	// 버퍼를 교채하는 함수
-//	void Flipping()
-//	{
-//		// 버퍼는 하나만 활성화 시킬 수 있습니다.
-//		SetConsoleActiveScreenBuffer(Screen[screenIndex]);
-//	
-//		// true <- false
-//		screenIndex = !screenIndex;
-//	}
-//	
-//	// 버퍼를 지우다
-//	// 교체된 버퍼를 지워주는 함수
-//	void Clear()
-//	{
-//		COORD coord = { 0,0 };
-//	
-//		DWORD dw;
-//	
-//		FillConsoleOutputCharacter
-//		(
-//			Screen[screenIndex],
-//			' ',
-//			width * height,
-//			coord,
-//			&dw
-//		);
-//	}
-//	
-//	// 버퍼를 해제하는 함수
-//	void ReleaseScreen()
-//	{
-//		CloseHandle(Screen[0]);
-//		CloseHandle(Screen[1]);
-//	}
-//	
-//	// 버퍼를 이용해서 출력하는 함수
-//	void ShowBuffer(int x, int y, const char* string)
-//	{
-//		COORD cursorPosition = { x,y };
-//	
-//		DWORD dw;
-//	
-//		SetConsoleCursorPosition(Screen[screenIndex], cursorPosition);
-//	
-//		WriteFile
-//		(
-//			Screen[screenIndex],
-//			string,
-//			strlen(string),
-//			&dw,
-//			NULL
-//		);
-//	}
+int seed = 0;
 
-#pragma endregion
+struct Student
+{
+	int x;
+	int y;
+	const char* shape;
+};
+
+struct Enemy
+{
+	int x, y;
+	const char* shape;
+};
+
+int Random()
+{
+	srand(time(NULL));
+	seed = rand() % 31 + 0;
+
+	if (seed % 2 == 1)
+	{
+		seed += 1;
+	}
+	return seed;
+}
+
+
+void Keyboard(Student* player)
+{
+	char key = 0;
+	if (_kbhit())
+	{
+		key = _getch();
+		if (key == -32)
+		{
+			key = _getch();
+		}
+
+		switch (key)
+		{
+		case LEFT: if ((player->x <= 0)) return;
+			player -> x -= 2;
+			break;
+		case RIGHT: if ((player->x >= 28)) return;
+			player->x += 2;
+			break;
+		}
+	}
+}
+
+void gotoXY(int x, int y)
+{
+	// x, y 좌표 설정
+	COORD position = { x,y };
+
+	// 커서 이동
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
+}
 
 int main()
 {
-#pragma region 더블 버퍼링
-	//	// 1. 버퍼 초기화
-	//	Init();
-	//	Player player = { 5,5,"★" };
-	//	
-	//	while (1)
-	//	{
-	//		if (_kbhit())
-	//		{
-	//			char key = _getch();
-	//	
-	//			switch (key)
-	//			{
-	//			case UP: if (player.y <= 0) break;
-	//			{
-	//				player.y--;
-	//				break;
-	//			}
-	//			case LEFT: if (player.x <= 0) break;
-	//			{
-	//				player.x--;
-	//				break;
-	//			}
-	//			case RIGHT: player.x++;
-	//				break;
-	//			case DOWN: player.y++;
-	//				break;
-	//			}
-	//		}
-	//	
-	//		ShowBuffer(player.x, player.y, player.shape);
-	//	
-	//		// 2. 버퍼교체
-	//		Flipping();
-	//	
-	//		Clear();
-	//	}
-	//	
-	//	// 4. 버퍼를 해제합니다.
-	//	ReleaseScreen();
+#pragma region  문자열 관련 함수
+
+	// 문자열 김이 함수
+	/*
+	const char* name = "James";
+	int result = strlen(name);
+
+	printf("result의 값 : %d", result);
+	*/
+
+	// 문자열 연결 함수
+	/*
+	char firstArr[20] = "First";
+	char secondArr[] = "Second";
+
+	strcat(firstArr, secondArr);
+
+	printf("firstArr의 값 : %s\n", firstArr);
+	*/
+
+	// 문자열 복사 함수
+	/*
+	char a[10] = {"String"};
+	char b[10];
+
+	// 첫 번째 매개변수 : 복사받을 문자 배열
+	// 두 번쨰 매개변수 : 복사할 문자 배열
+	strcpy(b, a);
+
+	printf("a의 문자열 : %s\n", a);
+	printf("b의 문자열 : %s\n", b);
+	*/
+
+	// 문자열 비교 함수
+	/*
+	char firstA[] = { "ABC" };
+	char secondB[] = { "ABC" };
+
+	// 서로 같으면 "0"
+	// 앞 쪽에 있는 값이 크면 "1"
+	// 뒤 쪽에 있는 값이 크면 "-1"
+
+	printf("두 문자열을 비교한 결과 : %d\n", strcmp(firstA, secondB));
+	*/
 #pragma endregion
 
-#pragma region 최대 공약수
+	system("mode con cols=30 lines=25");
 
-	int x, y;
-	scanf("%d %d", &x, &y);
+	Random();
 
-	int min = 0;
-	int max = 0;
-	int result = 1;
+	Student player = { 16, 23, "★" };
+	Enemy enemy = { seed, 0, "●" };
 
-	for (int i = 2; i <= x && i<= y; i++)
+	while (1)
 	{
-		/*if (x % i == 0 && y % i == 0)
+		Keyboard(&player);
+
+		if (enemy.y >= 24)
 		{
-			x /= i;
-			y /= i;
-			result *= i;
-			i--;
-		}*/
-		if (x % i == 0 && y % i == 0)
-		{
-			result = i;
+			enemy.y = 0;
+			enemy.x = Random();
 		}
+
+		if (player.x == enemy.x && player.y == enemy.y)
+		{
+			break;
+		}
+
+		gotoXY(enemy.x, enemy.y++);
+		printf("%s", enemy.shape);
+
+		gotoXY(player.x, player.y);
+		printf("%s", player.shape);
+
+		Sleep(100);
+		system("cls");
+
 	}
-	printf("최대 공약수 : %d", result);
-
-#pragma endregion
-
+	
 	return 0;
-
 }

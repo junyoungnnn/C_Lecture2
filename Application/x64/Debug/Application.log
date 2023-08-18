@@ -1,9 +1,5 @@
 ﻿  소스.cpp
-C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(38,18): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(38,25): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(41,33): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(41,45): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(119,28): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(119,30): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(132,3): warning C4267: '인수': 'size_t'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(28,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(65,21): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\노준오\Desktop\C_Lecture2\Application\소스.cpp(65,23): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
   Application.vcxproj -> C:\Users\노준오\Desktop\C_Lecture2\Application\x64\Debug\Application.exe
