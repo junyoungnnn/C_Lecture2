@@ -72,7 +72,7 @@ int main()
 {
 #pragma region  문자열 관련 함수
 
-	// 문자열 김이 함수
+	// 문자열 길이 함수
 	/*
 	const char* name = "James";
 	int result = strlen(name);
