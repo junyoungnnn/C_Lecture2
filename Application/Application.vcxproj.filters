@@ -41,5 +41,8 @@
     <ClInclude Include="%282023.08.17%29 더블 버퍼링.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="%282023.08.18%29 문자열 관련 함수.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
